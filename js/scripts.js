@@ -50,7 +50,7 @@ function init() {
     function erase() {
         const eraseButton = document.querySelector('[value="Erase"]');
         eraseButton.addEventListener('click', () => {
-            display.textContent = display.textContent.substring(1);
+            display.textContent = display.textContent.slice(0, -1);
         })
     }
 
