@@ -54,8 +54,24 @@ function init() {
         })
     }
 
+    function ChangeToPosNeg() {
+        const PosNegButton = document.querySelector('[value="+/-"]');
+        const firstChar = display.textContent.charAt(0);
+        PosNegButton.addEventListener('click', () => {
+            console.log(firstChar.match(/\d+/g));
+            if(firstChar === /\d+/g) {
+                let minus = "-";
+                display.textContent.concat(minus);
+            }
+            else if (firstChar === "-") {
+                display.textContent = display.textContent.substring(1);
+            }
+        });
+    }
+
     defineDigitsListener();
     resetCalculator();
     erase();
+    ChangeToPosNeg();
 }
 init();
