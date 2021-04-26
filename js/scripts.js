@@ -48,11 +48,9 @@ function init() {
     }
 
     function erase() {
-        const erase = document.querySelector('[value="Erase"]');
-        const displayText = display.textContent;
-        erase.addEventListener('click', () => {
-            console.log(displayText);
-            displayText.substring(1);
+        const eraseButton = document.querySelector('[value="Erase"]');
+        eraseButton.addEventListener('click', () => {
+            display.textContent = display.textContent.substring(1);
         })
     }
 
