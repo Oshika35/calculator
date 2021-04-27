@@ -58,8 +58,11 @@ function init() {
         const PosNegButton = document.querySelector('[value="+/-"]');
         PosNegButton.addEventListener('click', () => {
             const minus = "-";
-            if(display.textContent.charAt(0) === "-") {
+            if (display.textContent.charAt(0) === "-") {
                 display.textContent = display.textContent.substring(1);
+            }
+            else if (display.textContent === "") {
+                return;
             } else {
                 display.textContent = minus + display.textContent;
             }
