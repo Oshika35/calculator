@@ -81,10 +81,18 @@ function init() {
         });
     }
 
+    function addSquare() {
+        const squareButton = document.querySelector('[value="x²"]');
+        squareButton.addEventListener('click', () => {
+            display.textContent = display.textContent * display.textContent;
+        });
+    }
+
     defineDigitsListener();
     resetCalculator();
     erase();
     ChangeToPosNeg();
     addComma();
+    addSquare();
 }
 init();
