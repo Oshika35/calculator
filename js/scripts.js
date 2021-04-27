@@ -69,9 +69,22 @@ function init() {
         });
     }
 
+    function addComma() {
+        const commaButton = document.querySelector('[value=","]');
+        commaButton.addEventListener('click', () => {
+            const comma = ",";
+            if (display.textContent === "" || display.textContent.indexOf(',') >= 1) {
+                return;
+            } else {
+                display.textContent += comma;
+            }
+        });
+    }
+
     defineDigitsListener();
     resetCalculator();
     erase();
     ChangeToPosNeg();
+    addComma();
 }
 init();
