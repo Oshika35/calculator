@@ -91,23 +91,11 @@ function init() {
         });
     }
 
-    function resetDisplay() {
-        const allButtons = document.querySelectorAll(".row__buttons");
-        allButtons.forEach((button) => {
-            button.addEventListener('click', () => {
-                if (display.textContent === "NaN") {
-                    display.textContent = "";
-                }
-            });
-        });
-    }
-
     defineDigitsListener();
     resetCalculator();
     erase();
     ChangeToPosNeg();
     addComma();
     addSquare();
-    resetDisplay();
 }
 init();
