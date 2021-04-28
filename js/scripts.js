@@ -84,7 +84,21 @@ function init() {
     function addSquare() {
         const squareButton = document.querySelector('[value="x²"]');
         squareButton.addEventListener('click', () => {
+            if (display.textContent === "" || display.textContent === NaN) {
+                return;
+            }
             display.textContent = display.textContent * display.textContent;
+        });
+    }
+
+    function resetDisplay() {
+        const allButtons = document.querySelectorAll(".row__buttons");
+        allButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                if (display.textContent === "NaN") {
+                    display.textContent = "";
+                }
+            });
         });
     }
 
@@ -94,5 +108,6 @@ function init() {
     ChangeToPosNeg();
     addComma();
     addSquare();
+    resetDisplay();
 }
 init();
