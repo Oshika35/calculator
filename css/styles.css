@@ -47,6 +47,10 @@ body {
   overflow: auto;
   font-size: 64px;
   color: #000;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .calculator__body {
@@ -71,21 +75,20 @@ body {
   font-size: 1rem;
   cursor: pointer;
   text-align: center;
-  transition: background 250ms ease-in-out, 
-              transform 150ms ease;
+  transition: background 250ms ease-in-out, transform 150ms ease;
   -webkit-appearance: none;
   -moz-appearance: none;
   /* end of reset default styling */
   height: 50px;
   width: 75px;
-  color: #FAFAFA;
+  color: #fafafa;
   background-color: #424242;
 }
 
 .row__buttons:hover {
-    background: #0053ba;
+  background: #0053ba;
 }
 
 .row__buttons:active {
-    transform: scale(0.99);
+  transform: scale(0.99);
 }

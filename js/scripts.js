@@ -32,68 +32,71 @@ function init() {
         }
     }
 
-    function defineDigitsListener() {
+    function inputsEventListener() {
         const digits = document.querySelectorAll(".digit");
+        const eraseButton = document.querySelector('[value="Erase"]');
+        const resetButton = document.querySelector(".account-current");
+        const posNegButton = document.querySelector('[value="+/-"]');
+        const decimalPointButton = document.querySelector('[value="."]');
+        const squareButton = document.querySelector('[value="x²"]');
+
         digits.forEach((digit) => {
-            const digitValue = digit.getAttribute("value");
             digit.addEventListener('click', () => {
-                display.textContent += digitValue;
+                display.textContent += digit.getAttribute("value");
             });
         });
+
+        eraseButton.addEventListener('click', erase);
+        resetButton.addEventListener('click', resetCalculator);
+        posNegButton.addEventListener('click', changeToPosNeg);
+        decimalPointButton.addEventListener('click', addDecimalPoint);
+        squareButton.addEventListener('click', addSquare);
     }
 
     function resetCalculator() {
-        const resetButton = document.querySelector(".account-current");
-        resetButton.addEventListener('click', () => display.textContent = "")
+        display.textContent = "";
     }
 
     function erase() {
-        const eraseButton = document.querySelector('[value="Erase"]');
-        eraseButton.addEventListener('click', () => {
-            display.textContent = display.textContent.slice(0, -1);
-        })
+        display.textContent = display.textContent.slice(0, -1);
     }
 
-    function ChangeToPosNeg() {
-        const PosNegButton = document.querySelector('[value="+/-"]');
-        PosNegButton.addEventListener('click', () => {
-            const minus = "-";
-            if (display.textContent.charAt(0) === "-") {
-                display.textContent = display.textContent.substring(1);
-            }
-            else if (display.textContent === "") {
-                return;
-            } else {
-                display.textContent = minus + display.textContent;
-            }
-        });
+    function changeToPosNeg() {
+        const minus = "-";
+        if (display.textContent.charAt(0) === "-") {
+            display.textContent = display.textContent.substring(1);
+        }
+        else if (display.textContent === "") {
+            return;
+        } else {
+            display.textContent = minus + display.textContent;
+        }
     }
 
     function addDecimalPoint() {
-        const decimalPointButton = document.querySelector('[value="."]');
-        decimalPointButton.addEventListener('click', () => {
-            const decimalPoint = ".";
-            if (display.textContent === "" || display.textContent.indexOf('.') >= 1) {
-                return;
-            } else {
-                display.textContent += decimalPoint;
-            }
-        });
+        const decimalPoint = ".";
+        if (display.textContent === "" || display.textContent.indexOf('.') >= 1) {
+            return;
+        } else {
+            display.textContent += decimalPoint;
+        }
     }
 
     function addSquare() {
-        const squareButton = document.querySelector('[value="x²"]');
-        squareButton.addEventListener('click', () => {
-            if (display.textContent !== "") {
-                display.textContent = Math.pow(display.textContent, 2);
-            }
-            if (!Number.isInteger(Number(display.textContent))) {
-                display.textContent = Number(display.textContent).toFixed(2);
-            }
-        });
+        if (display.textContent !== "") {
+            display.textContent = Math.pow(display.textContent, 2);
+        }
+        if (!Number.isInteger(Number(display.textContent))) {
+            display.textContent = Number(display.textContent).toFixed(2);
+        }
     }
 
     function storeUserInput() {
+        const resultStorage = [
+            {
+
+            }
+        ]
         const addButton = document.querySelector('[value="+"]');
         const addValue = addButton.getAttribute("value");
         const subButton = document.querySelector('[value="-"]');
@@ -109,19 +112,13 @@ function init() {
             console.log(result);
             return result;
         });
-        
 
         resultButton.addEventListener('click', () => {
 
         });
     }
 
-    defineDigitsListener();
-    resetCalculator();
-    erase();
-    ChangeToPosNeg();
-    addDecimalPoint();
-    addSquare();
+    inputsEventListener();
     storeUserInput()
 }
 init();
