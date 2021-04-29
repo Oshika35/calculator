@@ -92,11 +92,6 @@ function init() {
     }
 
     function storeUserInput() {
-        const resultStorage = [
-            {
-
-            }
-        ]
         const addButton = document.querySelector('[value="+"]');
         const addValue = addButton.getAttribute("value");
         const subButton = document.querySelector('[value="-"]');
@@ -104,17 +99,25 @@ function init() {
         const divideButton = document.querySelector('[value="/"]');
         const resultButton = document.querySelector('[value="="]');
 
+        let resultStorage = [
+            {
+                n1: 0,
+                n2: 0,
+                operator: 0,
+                storedResult: 0,
+            }
+        ];
+
         let addOperation = addButton.addEventListener('click', () => {
-            let result = display.textContent;
+            resultStorage.push(resultStorage[0].n1 = display.textContent);
+            console.log(resultStorage, "resultStorage");
             if (display.textContent !== "") {
                 display.textContent += addValue;
             }
-            console.log(result);
-            return result;
         });
 
         resultButton.addEventListener('click', () => {
-
+            operate()
         });
     }
 
