@@ -104,12 +104,12 @@ function init() {
                 n1: 0,
                 n2: 0,
                 operator: 0,
-                storedResult: 0,
+                storedResult: 0
             }
         ];
 
         let addOperation = addButton.addEventListener('click', () => {
-            resultStorage.push(resultStorage[0].n1 = display.textContent);
+            resultStorage[0].n1 = display.textContent;
             console.log(resultStorage, "resultStorage");
             if (display.textContent !== "") {
                 display.textContent += addValue;
