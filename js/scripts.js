@@ -69,14 +69,14 @@ function init() {
         });
     }
 
-    function addComma() {
-        const commaButton = document.querySelector('[value=","]');
-        commaButton.addEventListener('click', () => {
-            const comma = ",";
-            if (display.textContent === "" || display.textContent.indexOf(',') >= 1) {
+    function addDecimalPoint() {
+        const decimalPointButton = document.querySelector('[value="."]');
+        decimalPointButton.addEventListener('click', () => {
+            const decimalPoint = ".";
+            if (display.textContent === "" || display.textContent.indexOf('.') >= 1) {
                 return;
             } else {
-                display.textContent += comma;
+                display.textContent += decimalPoint;
             }
         });
     }
@@ -84,10 +84,35 @@ function init() {
     function addSquare() {
         const squareButton = document.querySelector('[value="x²"]');
         squareButton.addEventListener('click', () => {
-            if (display.textContent === "" || display.textContent === NaN) {
-                return;
+            if (display.textContent !== "") {
+                display.textContent = Math.pow(display.textContent, 2);
             }
-            display.textContent = display.textContent * display.textContent;
+            if (!Number.isInteger(Number(display.textContent))) {
+                display.textContent = Number(display.textContent).toFixed(2);
+            }
+        });
+    }
+
+    function storeUserInput() {
+        const addButton = document.querySelector('[value="+"]');
+        const addValue = addButton.getAttribute("value");
+        const subButton = document.querySelector('[value="-"]');
+        const multiplyButton = document.querySelector('[value="*"]');
+        const divideButton = document.querySelector('[value="/"]');
+        const resultButton = document.querySelector('[value="="]');
+
+        let addOperation = addButton.addEventListener('click', () => {
+            let result = display.textContent;
+            if (display.textContent !== "") {
+                display.textContent += addValue;
+            }
+            console.log(result);
+            return result;
+        });
+        
+
+        resultButton.addEventListener('click', () => {
+
         });
     }
 
@@ -95,7 +120,8 @@ function init() {
     resetCalculator();
     erase();
     ChangeToPosNeg();
-    addComma();
+    addDecimalPoint();
     addSquare();
+    storeUserInput()
 }
 init();
