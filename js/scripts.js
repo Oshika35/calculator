@@ -1,34 +1,34 @@
 function init() {
     const display = document.querySelector(".display__text");
 
-    function add(myArray) {
-        return myArray.reduce((x, y) => x + y, 0);
+    function add(x, y) {
+        return x + y;
     }
 
-    function substract(myArray) {
-        return myArray.reduce((x, y) => x - y, 0);
+    function substract(x, y) {
+        return x - y;
     }
 
-    function multiply(myArray) {
-        return myArray.reduce((x, y) => x * y, 1);
+    function multiply(x, y) {
+        return x * y;
     }
 
-    function divide(myArray) {
-        return myArray.reduce((x, y) => x / y);
+    function divide(x, y) {
+        return x / y;
     }
 
     function operate(x, operator, y) {
         if (operator === "+") {
-            add(x, y);
+            return add(x, y);
         }
         else if (operator === "-") {
-            substract(x, y);
+            return substract(x, y);
         }
         else if (operator === "*") {
-            multiply(x, y);
+            return multiply(x, y);
         }
         else if (operator === "/") {
-            divide(x, y);
+            return divide(x, y);
         }
     }
 
@@ -91,33 +91,69 @@ function init() {
         }
     }
 
+    function evaluate(result, operator) {
+        let operand1 = Number(result.substring(0, result.lastIndexOf(operator)));
+        let operand2 = Number(result.substring(result.lastIndexOf(operator) + 1));
+        display.textContent = operate(operand1, operator, operand2);
+    }
+
     function storeUserInput() {
         const addButton = document.querySelector('[value="+"]');
         const addValue = addButton.getAttribute("value");
         const subButton = document.querySelector('[value="-"]');
+        const subValue = subButton.getAttribute("value");
         const multiplyButton = document.querySelector('[value="*"]');
+        const multiplyValue = multiplyButton.getAttribute("value");
         const divideButton = document.querySelector('[value="/"]');
+        const divideValue = divideButton.getAttribute("value");
         const resultButton = document.querySelector('[value="="]');
+        const operators = ["+", "-", "*", "/"];
 
-        let resultStorage = [
-            {
-                n1: 0,
-                n2: 0,
-                operator: 0,
-                storedResult: 0
+        addButton.addEventListener('click', () => {
+            let storedOperator = addValue;
+            if (operators.some(operator => display.textContent.includes(operator))) {
+                const addOperator = addValue;
+                evaluate(display.textContent, addOperator);
             }
-        ];
-
-        let addOperation = addButton.addEventListener('click', () => {
-            resultStorage[0].n1 = display.textContent;
-            console.log(resultStorage, "resultStorage");
             if (display.textContent !== "") {
                 display.textContent += addValue;
             }
         });
 
+        subButton.addEventListener('click', () => {
+            if (operators.some(operator => display.textContent.includes(operator))) {
+                const subOperator = subValue;
+                evaluate(display.textContent, subOperator);
+            }
+            if (display.textContent !== "") {
+                display.textContent += subValue;
+            }
+        });
+
+        multiplyButton.addEventListener('click', () => {
+            if (operators.some(operator => display.textContent.includes(operator))) {
+                const multiplyOperator = multiplyValue;
+                evaluate(display.textContent, multiplyOperator);
+            }
+            if (display.textContent !== "") {
+                display.textContent += multiplyValue;
+            }
+        });
+
+        divideButton.addEventListener('click', () => {
+            if (operators.some(operator => display.textContent.includes(operator))) {
+                const divideOperator = divideValue;
+                evaluate(display.textContent, divideOperator);
+            }
+            if (display.textContent !== "") {
+                display.textContent += divideValue;
+            }
+        });
+
         resultButton.addEventListener('click', () => {
-            operate()
+            const n1 = Number(display.textContent.substring(0, display.textContent.lastIndexOf(storedOperator)));
+            const n2 = Number(display.textContent.substring(display.textContent.lastIndexOf(storedOperator) + 1));
+            display.textContent = operate(n1, storedOperator, n2)
         });
     }
 
