@@ -15,6 +15,9 @@ function init() {
     }
 
     function divide(x, y) {
+        if (y === 0) {
+            return display.textContent = "You can't divide by 0";
+        }
         return x / y;
     }
 
@@ -152,9 +155,11 @@ function init() {
         });
 
         resultButton.addEventListener('click', () => {
-            let n1 = Number(display.textContent.substring(0, display.textContent.lastIndexOf(storedOperator)));
-            let n2 = Number(display.textContent.substring(display.textContent.lastIndexOf(storedOperator) + 1));
-            display.textContent = operate(n1, storedOperator, n2);
+            if (operators.some(operator => display.textContent.includes(operator))) {
+                let n1 = Number(display.textContent.substring(0, display.textContent.lastIndexOf(storedOperator)));
+                let n2 = Number(display.textContent.substring(display.textContent.lastIndexOf(storedOperator) + 1));
+                display.textContent = operate(n1, storedOperator, n2);
+            }
         });
     }
 
