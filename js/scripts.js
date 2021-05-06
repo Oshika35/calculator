@@ -56,6 +56,7 @@ function init() {
 
     function resetCalculator() {
         display.textContent = "";
+        storedOperator = 0;
     }
 
     function erase() {
