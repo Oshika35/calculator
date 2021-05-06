@@ -60,6 +60,8 @@ function init() {
     function resetCalculator() {
         display.textContent = "";
         storedOperator = 0;
+        const disableButtons = document.querySelectorAll(".row__buttons");
+        disableButtons.forEach((button) => button.disabled = false);
     }
 
     function erase() {
@@ -159,6 +161,10 @@ function init() {
                 let n1 = Number(display.textContent.substring(0, display.textContent.lastIndexOf(storedOperator)));
                 let n2 = Number(display.textContent.substring(display.textContent.lastIndexOf(storedOperator) + 1));
                 display.textContent = operate(n1, storedOperator, n2);
+
+                const disableButtons = document.querySelectorAll(".row__buttons");
+                disableButtons.forEach((button) => button.disabled = true);
+                document.querySelector(".account-current").disabled = false;
             }
         });
     }
