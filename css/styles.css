@@ -47,10 +47,6 @@ body {
   overflow: auto;
   font-size: 64px;
   color: #000;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 
 .calculator__body {
