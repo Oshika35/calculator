@@ -98,10 +98,15 @@ function init() {
         }
     }
 
-    function evaluate(operands, operator) {
-        let operand1 = Number(operands.substring(0, operands.lastIndexOf(operator)));
-        let operand2 = Number(operands.substring(operands.lastIndexOf(operator) + 1));
+    function evaluate(operation, operator) {
+        const count = [...operation].filter( operation => ['+', '-', '*', '/'].includes( operation ) ).length;
+        if (count === 1) {
+            return;
+        } else {
+        let operand1 = Number(operation.substring(0, operation.lastIndexOf(operator)));
+        let operand2 = Number(operation.substring(operation.lastIndexOf(operator) + 1));
         display.textContent = operate(operand1, operator, operand2);
+        }
     }
 
     function storeUserInput() {
