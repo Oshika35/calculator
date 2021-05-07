@@ -1,6 +1,7 @@
 function init() {
     const calculator = document.querySelector('.calculator');
     const display = calculator.querySelector(".display__text");
+    const operators = ["+", "-", "*", "/"];
     let storedOperator = 0;
 
     function add(x, y) {
@@ -80,7 +81,6 @@ function init() {
 
     function changeToPosNeg() {
         const minus = "-";
-        const operators = ["+", "-", "*", "/"];
         const count = [...display.textContent].filter(operation => operators.includes(operation)).length;
         const secondOperatorPosition = nthIndex(display.textContent, operators, 2);
         if (display.textContent.charAt(0) === minus && count === 2 && !operators.some(operator => display.textContent.charAt(display.textContent.length - 1).includes(operator))) {
@@ -114,15 +114,21 @@ function init() {
         }
     }
 
-    function evaluate(operation, operator) {
-        const count = [...operation].filter(operation => ['+', '-', '*', '/'].includes(operation)).length;
-        if (count === 1) {
+    function evaluate(calculation, operator) {
+        const count = [...calculation].filter(operation => operators.includes(operation)).length;
+        if (count === 1 && display.textContent.charAt(0) === "-") {
             return;
         } else {
-            let operand1 = Number(operation.substring(0, operation.lastIndexOf(operator)));
-            let operand2 = Number(operation.substring(operation.lastIndexOf(operator) + 1));
+            let operand1 = Number(calculation.substring(0, calculation.lastIndexOf(operator)));
+            let operand2 = Number(calculation.substring(calculation.lastIndexOf(operator) + 1));
             display.textContent = operate(operand1, operator, operand2);
+            roundResult(display.textContent);
         }
+    }
+
+    function roundResult(result) {
+        result = Math.round((Number(result) + Number.EPSILON) * 1000000) / 1000000;
+        display.textContent = result;
     }
 
     function storeUserInput() {
@@ -135,7 +141,6 @@ function init() {
         const divideButton = calculator.querySelector('[value="/"]');
         const divideValue = divideButton.getAttribute("value");
         const resultButton = calculator.querySelector('[value="="]');
-        const operators = ["+", "-", "*", "/"];
 
         addButton.addEventListener('click', () => {
             if (operators.some(operator => display.textContent.includes(operator))) {
@@ -181,7 +186,8 @@ function init() {
             if (operators.some(operator => display.textContent.includes(operator))) {
                 let n1 = Number(display.textContent.substring(0, display.textContent.lastIndexOf(storedOperator)));
                 let n2 = Number(display.textContent.substring(display.textContent.lastIndexOf(storedOperator) + 1));
-                display.textContent = operate(n1, storedOperator, n2);
+                let result = operate(n1, storedOperator, n2);
+                roundResult(result);
 
                 const disableButtons = calculator.querySelectorAll(".row__buttons");
                 disableButtons.forEach((button) => button.disabled = true);
