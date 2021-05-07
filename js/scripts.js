@@ -1,5 +1,6 @@
 function init() {
-    const display = document.querySelector(".display__text");
+    const calculator = document.querySelector('.calculator');
+    const display = calculator.querySelector(".display__text");
     let storedOperator = 0;
 
     function add(x, y) {
@@ -37,12 +38,12 @@ function init() {
     }
 
     function inputsEventListener() {
-        const digits = document.querySelectorAll(".digit");
-        const eraseButton = document.querySelector('[value="Erase"]');
-        const resetButton = document.querySelector(".account-current");
-        const posNegButton = document.querySelector('[value="+/-"]');
-        const decimalPointButton = document.querySelector('[value="."]');
-        const squareButton = document.querySelector('[value="x²"]');
+        const digits = calculator.querySelectorAll(".digit");
+        const eraseButton = calculator.querySelector('[value="Erase"]');
+        const resetButton = calculator.querySelector(".account-current");
+        const posNegButton = calculator.querySelector('[value="+/-"]');
+        const decimalPointButton = calculator.querySelector('[value="."]');
+        const squareButton = calculator.querySelector('[value="x²"]');
 
         digits.forEach((digit) => {
             digit.addEventListener('click', () => {
@@ -60,7 +61,7 @@ function init() {
     function resetCalculator() {
         display.textContent = "";
         storedOperator = 0;
-        const disableButtons = document.querySelectorAll(".row__buttons");
+        const disableButtons = calculator.querySelectorAll(".row__buttons");
         disableButtons.forEach((button) => button.disabled = false);
     }
 
@@ -81,7 +82,6 @@ function init() {
         const minus = "-";
         const operators = ["+", "-", "*", "/"];
         const count = [...display.textContent].filter(operation => operators.includes(operation)).length;
-        console.log(count);
         const secondOperatorPosition = nthIndex(display.textContent, operators, 2);
         if (display.textContent.charAt(0) === minus && count === 2 && !operators.some(operator => display.textContent.charAt(display.textContent.length - 1).includes(operator))) {
             display.textContent = [display.textContent.slice(0, secondOperatorPosition), minus, display.textContent.slice(secondOperatorPosition)].join('')
@@ -126,15 +126,15 @@ function init() {
     }
 
     function storeUserInput() {
-        const addButton = document.querySelector('[value="+"]');
+        const addButton = calculator.querySelector('[value="+"]');
         const addValue = addButton.getAttribute("value");
-        const subButton = document.querySelector('[value="-"]');
+        const subButton = calculator.querySelector('[value="-"]');
         const subValue = subButton.getAttribute("value");
-        const multiplyButton = document.querySelector('[value="*"]');
+        const multiplyButton = calculator.querySelector('[value="*"]');
         const multiplyValue = multiplyButton.getAttribute("value");
-        const divideButton = document.querySelector('[value="/"]');
+        const divideButton = calculator.querySelector('[value="/"]');
         const divideValue = divideButton.getAttribute("value");
-        const resultButton = document.querySelector('[value="="]');
+        const resultButton = calculator.querySelector('[value="="]');
         const operators = ["+", "-", "*", "/"];
 
         addButton.addEventListener('click', () => {
@@ -183,9 +183,9 @@ function init() {
                 let n2 = Number(display.textContent.substring(display.textContent.lastIndexOf(storedOperator) + 1));
                 display.textContent = operate(n1, storedOperator, n2);
 
-                const disableButtons = document.querySelectorAll(".row__buttons");
+                const disableButtons = calculator.querySelectorAll(".row__buttons");
                 disableButtons.forEach((button) => button.disabled = true);
-                document.querySelector(".account-current").disabled = false;
+                calculator.querySelector(".account-current").disabled = false;
             }
         });
     }
