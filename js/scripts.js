@@ -68,9 +68,25 @@ function init() {
         display.textContent = display.textContent.slice(0, -1);
     }
 
+    function nthIndex(str, pat, n) {
+        var L = str.length, i = -1;
+        while (n-- && i++ < L) {
+            i = str.indexOf(pat, i);
+            if (i < 0) break;
+        }
+        return i;
+    }
+
     function changeToPosNeg() {
         const minus = "-";
-        if (display.textContent.charAt(0) === "-") {
+        const operators = ["+", "-", "*", "/"];
+        const count = [...display.textContent].filter(operation => operators.includes(operation)).length;
+        console.log(count);
+        const secondOperatorPosition = nthIndex(display.textContent, operators, 2);
+        if (display.textContent.charAt(0) === minus && count === 2 && !operators.some(operator => display.textContent.charAt(display.textContent.length - 1).includes(operator))) {
+            display.textContent = [display.textContent.slice(0, secondOperatorPosition), minus, display.textContent.slice(secondOperatorPosition)].join('')
+        }
+        else if (display.textContent.charAt(0) === minus) {
             display.textContent = display.textContent.substring(1);
         }
         else if (display.textContent === "") {
@@ -99,13 +115,13 @@ function init() {
     }
 
     function evaluate(operation, operator) {
-        const count = [...operation].filter( operation => ['+', '-', '*', '/'].includes( operation ) ).length;
+        const count = [...operation].filter(operation => ['+', '-', '*', '/'].includes(operation)).length;
         if (count === 1) {
             return;
         } else {
-        let operand1 = Number(operation.substring(0, operation.lastIndexOf(operator)));
-        let operand2 = Number(operation.substring(operation.lastIndexOf(operator) + 1));
-        display.textContent = operate(operand1, operator, operand2);
+            let operand1 = Number(operation.substring(0, operation.lastIndexOf(operator)));
+            let operand2 = Number(operation.substring(operation.lastIndexOf(operator) + 1));
+            display.textContent = operate(operand1, operator, operand2);
         }
     }
 
