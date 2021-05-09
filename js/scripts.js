@@ -191,7 +191,7 @@ function init() {
 
                 const disableButtons = calculator.querySelectorAll(".row__buttons");
                 disableButtons.forEach((button) => button.disabled = true);
-                calculator.querySelector(".account-current").disabled = false;
+                calculator.querySelector(".account-current").disabled = false; // test
             }
         });
     }
