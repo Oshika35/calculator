@@ -143,6 +143,9 @@ function init() {
         const resultButton = calculator.querySelector('[value="="]');
 
         addButton.addEventListener('click', () => {
+            if (operators.some(operator => display.textContent.charAt(display.textContent.length - 1).includes(operator))) {
+                return;
+            }
             if (operators.some(operator => display.textContent.includes(operator))) {
                 evaluate(display.textContent, storedOperator);
             }
@@ -153,6 +156,9 @@ function init() {
         });
 
         subButton.addEventListener('click', () => {
+            if (operators.some(operator => display.textContent.charAt(display.textContent.length - 1).includes(operator))) {
+                return;
+            }
             if (operators.some(operator => display.textContent.includes(operator))) {
                 evaluate(display.textContent, storedOperator);
             }
@@ -163,6 +169,9 @@ function init() {
         });
 
         multiplyButton.addEventListener('click', () => {
+            if (operators.some(operator => display.textContent.charAt(display.textContent.length - 1).includes(operator))) {
+                return;
+            }
             if (operators.some(operator => display.textContent.includes(operator))) {
                 evaluate(display.textContent, storedOperator);
             }
@@ -173,6 +182,9 @@ function init() {
         });
 
         divideButton.addEventListener('click', () => {
+            if (operators.some(operator => display.textContent.charAt(display.textContent.length - 1).includes(operator))) {
+                return;
+            }
             if (operators.some(operator => display.textContent.includes(operator))) {
                 evaluate(display.textContent, storedOperator);
             }
