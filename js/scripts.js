@@ -106,6 +106,9 @@ function init() {
     }
 
     function addSquare() {
+        if (operators.some(operator => display.textContent.charAt(display.textContent.length - 1).includes(operator))) {
+            return;
+        }
         if (display.textContent !== "") {
             display.textContent = Math.pow(display.textContent, 2);
         }
@@ -209,6 +212,6 @@ function init() {
     }
 
     inputsEventListener();
-    storeUserInput()
+    storeUserInput();
 }
 init();
